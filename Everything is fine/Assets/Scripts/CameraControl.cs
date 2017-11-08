@@ -32,7 +32,7 @@ public class CameraControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 pos = Input.mousePosition;
-		Debug.Log (pos);
+		//Debug.Log (pos);
 		float newX = camPosition.transform.position.x;
 		float newZ = camPosition.transform.position.z;
 		bool changed = false;
