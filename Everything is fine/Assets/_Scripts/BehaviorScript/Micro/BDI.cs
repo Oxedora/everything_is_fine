@@ -57,8 +57,12 @@ public class BDI {
 
 	// Use this for initialization
 	public BDI (Agent agent) {
+        float z = 5 / 2;
+        Debug.Log(z);
 		myAgent = agent;
-		belief = new Belief();
+        MesoGroup mesoGroup = new MesoGroup(agent.Settings.MyGroup);
+		belief = new Belief(mesoGroup);
+        Debug.Log(agent.gameObject.name + " my type is : " + agent.GetType());
 		desire = new Desire(agent.GetType());
         intention = null;
 		perception = new Perception(myAgent);

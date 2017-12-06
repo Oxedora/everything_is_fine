@@ -22,7 +22,13 @@ public class Desire {
             Assembly.GetAssembly(typeof(Intention)).GetTypes() // get all types of Intention
             .Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(Intention)))) // checks that type is a non abstract subclass of Intention
         {
-            desires.Add((Intention)Activator.CreateInstance(type)); // update dictionnary with this possible desire
+            foreach(AgentAllowed attrib in (AgentAllowed[])type.GetCustomAttributes(typeof(AgentAllowed), false))
+            {
+                if(attrib.AgentType.Equals(typeOfAgent))
+                {
+                    desires.Add((Intention)Activator.CreateInstance(type)); // update dictionnary with this possible desire
+                }
+            }
         }
 	}
 	

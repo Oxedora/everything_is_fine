@@ -5,7 +5,7 @@ using UnityEngine;
 [AgentAllowed(typeof(Agent))]
 [AgentAllowed(typeof(Adult))]
 public class LookForRelative : Intention {
-    private Agent agentToFetch;
+    private Agent agentToFetch = null;
     public Agent AgentToFetch
     {
         get
@@ -17,6 +17,18 @@ public class LookForRelative : Intention {
 	public LookForRelative() : base() {}
 
 	public override Vector3 DefaultState(Agent agent){
+        if(AgentToFetch != null)
+        {
+            if(agent.Bdi.myBelief.MyGroup.Group[AgentToFetch] == null)
+            {
+                agentToFetch = null;
+            }
+            else
+            {
+                return (Vector3)agent.Bdi.myBelief.MyGroup.Group[AgentToFetch];
+            }
+        }
+
         return Vector3.zero;
 	}
 

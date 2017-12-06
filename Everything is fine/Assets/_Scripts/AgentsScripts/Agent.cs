@@ -51,6 +51,7 @@ public class Agent : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 reflexes = bdi.UpdateBDI();
+        Debug.Log(gameObject.name + " my intention is " + (bdi.myIntention == null ? "None" : bdi.myIntention.GetType().ToString()));
         if (!reflexes.Equals(Vector3.zero) || bdi.myIntention == null)
         {
             Vector3 destination = transform.position + reflexes.normalized;

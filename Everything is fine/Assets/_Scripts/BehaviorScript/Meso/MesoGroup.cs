@@ -27,8 +27,11 @@ public class MesoGroup {
 	/// Create a MesoGroup with every Agent and their position
 	/// </Summary>
 	/// <param name="d"> The dictionnary containing the agents and theirs positions </param>
-	public MesoGroup (Dictionary<Agent, Vector3?> d) {
-		group = d;
+	public MesoGroup (List<Agent> d) {
+		foreach(Agent a in d)
+        {
+            group.Add(a, a.transform.position);
+        }
 	}
 	
 	/// <Summary>
