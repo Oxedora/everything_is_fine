@@ -39,7 +39,8 @@ public class MesoGroup {
 	/// </Summary>
 	/// <param name="p"> The agent perception during this frame </param>
 	public void UpdateGroup (Perception p) {
-		foreach(Agent a in group.Keys){ // for each member of this group
+        List<Agent> relatives = group.Keys.ToList();
+		foreach(Agent a in relatives){ // for each member of this group
 			if(p.AgentsInSight.Contains(a)){ // if the given agent sees this member
 				group[a] = a.transform.position; // updates the position of this member for the given agent
 			}

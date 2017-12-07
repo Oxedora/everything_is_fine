@@ -65,6 +65,21 @@ public class Belief {
 		myGroup = mg;
 	}
 
+    public List<Agent> MesoInSight(Perception p)
+    {
+        List<Agent> mesoInSight = new List<Agent>();
+
+        foreach(Agent a in p.AgentsInSight)
+        {
+            if(MyGroup.Group.ContainsKey(a))
+            {
+                mesoInSight.Add(a);
+            }
+        }
+
+        return mesoInSight;
+    }
+
 	// Update is called once per frame
 	public void Update (Perception p) {
 		MyGroup.UpdateGroup(p);

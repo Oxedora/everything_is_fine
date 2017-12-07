@@ -86,7 +86,7 @@ public class Flock {
 
 	private Vector3 Dodge(){
 		Vector3 dod = Vector3.zero;
-		RaycastHit hitInfo, hitInfoLeft, hitInfoRight;
+        RaycastHit hitInfo;// hitInfoLeft, hitInfoRight;
 		Vector3 fwd = myAgent.transform.TransformDirection(Vector3.forward);
 
 		if(Physics.Raycast(myAgent.transform.position, fwd, out hitInfo, myAgent.Settings.SafeSpace, myAgent.Settings.ObstacleMask)){

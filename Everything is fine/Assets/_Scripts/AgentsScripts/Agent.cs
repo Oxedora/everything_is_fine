@@ -47,9 +47,31 @@ public class Agent : MonoBehaviour {
 		flocking = new Flock(this);
 		bdi = new BDI(this);
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnDrawGizmos()
+    {
+        float Radius = 1f;
+        Transform t = GetComponent<Transform>();
+        
+        float theta = 0f;
+        float x = Radius * Mathf.Cos(theta);
+        float y = Radius * Mathf.Sin(theta);
+        Vector3 pos = t.position + new Vector3(x, 0, y);
+        Vector3 newPos = pos;
+        Vector3 lastPos = pos;
+        for (theta = 0.1f; theta < Mathf.PI * 2; theta += 0.1f)
+        {
+            x = Radius * Mathf.Cos(theta);
+            y = Radius * Mathf.Sin(theta);
+            newPos = t.position + new Vector3(x, 0, y);
+            Debug.DrawLine(pos, newPos, Color.red);
+            pos = newPos;
+        }
+        Debug.DrawLine(pos, lastPos, Color.red);
+    }
+
+    // Update is called once per frame
+    void Update () {
         Vector3 reflexes = bdi.UpdateBDI();
         Debug.Log(gameObject.name + " my intention is " + (bdi.myIntention == null ? "None" : bdi.myIntention.GetType().ToString()));
         if (!reflexes.Equals(Vector3.zero) || bdi.myIntention == null)
@@ -65,8 +87,13 @@ public class Agent : MonoBehaviour {
 
             intentionDirection.y = 0;
             List<Agent> neighbors = bdi.myPerception.AgentsInSight;
-          
-            Vector3 force = (intentionDirection.Equals(Vector3.zero) ? flocking.Flocking(neighbors) : (1 - settings.CoeffI) * flocking.Flocking(neighbors) + settings.CoeffI * intentionDirection);
+            List<Agent> relative = bdi.myBelief.MesoInSight(bdi.myPerception);
+
+            Vector3 flockingDirection = (relative.Count > 0 ?
+                (1 - settings.CoeffMesoFlock) * flocking.Flocking(neighbors) + settings.CoeffMesoFlock * flocking.Flocking(relative) :
+                flocking.Flocking(neighbors));
+
+            Vector3 force = (intentionDirection.Equals(Vector3.zero) ? flockingDirection : (1 - settings.CoeffI) * flockingDirection + settings.CoeffI * intentionDirection);
             Vector3 destination = transform.position + force.normalized;
             //Debug.DrawLine(transform.position, destination, Color.black);
             rb.velocity = (force.Equals(Vector3.zero) ? transform.TransformDirection(Vector3.forward) : (destination - transform.position).normalized) * settings.MaxSpeed;

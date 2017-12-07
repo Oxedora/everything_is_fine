@@ -54,6 +54,18 @@ public class AgentsSettings : MonoBehaviour {
 	}
 
     [Header("Flocking coefficients")]
+    // Coeff if you prefer to flock with your meso
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float coeffMesoFlock = 0.7f;
+    public float CoeffMesoFlock
+    {
+        get
+        {
+            return coeffMesoFlock;
+        }
+    }
+
     // Coeff for Align force
     [SerializeField]
     [Range(0f, 1f)]
@@ -192,6 +204,8 @@ public class AgentsSettings : MonoBehaviour {
             return mesoGroup;
         }
     }
+
+    public Color groupColor = Color.black;
 
     private void Start()
     {

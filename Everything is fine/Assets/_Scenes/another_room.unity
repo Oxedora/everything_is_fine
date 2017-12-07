@@ -3293,6 +3293,26 @@ Prefab:
       propertyPath: mesoGroup.Array.data[1]
       value: 
       objectReference: {fileID: 1056197507}
+    - target: {fileID: 114943680905994978, guid: 4f858a69f8dc51a45b08cb244fa74b33,
+        type: 2}
+      propertyPath: groupColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114943680905994978, guid: 4f858a69f8dc51a45b08cb244fa74b33,
+        type: 2}
+      propertyPath: groupColor.g
+      value: 0.037931025
+      objectReference: {fileID: 0}
+    - target: {fileID: 114943680905994978, guid: 4f858a69f8dc51a45b08cb244fa74b33,
+        type: 2}
+      propertyPath: groupColor.b
+      value: 0.037931025
+      objectReference: {fileID: 0}
+    - target: {fileID: 114943680905994978, guid: 4f858a69f8dc51a45b08cb244fa74b33,
+        type: 2}
+      propertyPath: groupColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4f858a69f8dc51a45b08cb244fa74b33, type: 2}
   m_IsPrefabParent: 0
@@ -3799,6 +3819,26 @@ Prefab:
       propertyPath: mesoGroup.Array.data[1]
       value: 
       objectReference: {fileID: 1056197507}
+    - target: {fileID: 114943680905994978, guid: 567d9d48ce2393641b45d4adf06dc265,
+        type: 2}
+      propertyPath: groupColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114943680905994978, guid: 567d9d48ce2393641b45d4adf06dc265,
+        type: 2}
+      propertyPath: groupColor.g
+      value: 0.037931025
+      objectReference: {fileID: 0}
+    - target: {fileID: 114943680905994978, guid: 567d9d48ce2393641b45d4adf06dc265,
+        type: 2}
+      propertyPath: groupColor.b
+      value: 0.037931025
+      objectReference: {fileID: 0}
+    - target: {fileID: 114943680905994978, guid: 567d9d48ce2393641b45d4adf06dc265,
+        type: 2}
+      propertyPath: groupColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 567d9d48ce2393641b45d4adf06dc265, type: 2}
   m_IsPrefabParent: 0
@@ -3807,7 +3847,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh14498
+  m_Name: pb_Mesh12136
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -10915,6 +10955,26 @@ Prefab:
       propertyPath: mesoGroup.Array.data[1]
       value: 
       objectReference: {fileID: 924848034}
+    - target: {fileID: 114943680905994978, guid: 9866a52ee03d34d458cf60b4c166d283,
+        type: 2}
+      propertyPath: groupColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114943680905994978, guid: 9866a52ee03d34d458cf60b4c166d283,
+        type: 2}
+      propertyPath: groupColor.g
+      value: 0.037931025
+      objectReference: {fileID: 0}
+    - target: {fileID: 114943680905994978, guid: 9866a52ee03d34d458cf60b4c166d283,
+        type: 2}
+      propertyPath: groupColor.b
+      value: 0.037931025
+      objectReference: {fileID: 0}
+    - target: {fileID: 114943680905994978, guid: 9866a52ee03d34d458cf60b4c166d283,
+        type: 2}
+      propertyPath: groupColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9866a52ee03d34d458cf60b4c166d283, type: 2}
   m_IsPrefabParent: 0

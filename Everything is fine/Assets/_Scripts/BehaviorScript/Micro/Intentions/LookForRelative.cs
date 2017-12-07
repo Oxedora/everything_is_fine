@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[AgentAllowed(typeof(Agent))]
-[AgentAllowed(typeof(Adult))]
+
+/****************************************
+ * This need to be redesigned
+ * We can't give the directional vector to the target
+ * or the agent will just wiggle stupidly against a wall 
+ * in most of the cases
+ * *************************************/
+
+//[AgentAllowed(typeof(Agent))]
+//[AgentAllowed(typeof(Adult))]
 public class LookForRelative : Intention {
     private Agent agentToFetch = null;
     public Agent AgentToFetch
@@ -17,20 +25,16 @@ public class LookForRelative : Intention {
 	public LookForRelative() : base() {}
 
 	public override Vector3 DefaultState(Agent agent){
-        if(AgentToFetch != null)
+        
+        if(AgentToFetch == null || agent.Bdi.myBelief.MyGroup.Group[AgentToFetch] == null)
         {
-            if(agent.Bdi.myBelief.MyGroup.Group[AgentToFetch] == null)
-            {
-                agentToFetch = null;
-            }
-            else
-            {
-                return (Vector3)agent.Bdi.myBelief.MyGroup.Group[AgentToFetch];
-            }
+            WhichMesoMember(agent);
         }
-
-        return Vector3.zero;
-	}
+        
+        return (agent.Bdi.myBelief.MyGroup.Group[AgentToFetch] == null ? 
+            Vector3.zero : 
+            ((Vector3)agent.Bdi.myBelief.MyGroup.Group[AgentToFetch]).normalized);
+    }
 
 	private void WhichMesoMember(Agent myAgent){
 		List<Agent> meso = new List<Agent>(myAgent.Bdi.myBelief.MyGroup.Group.Keys);
@@ -46,7 +50,7 @@ public class LookForRelative : Intention {
             }
 		}
 
-        if(tooFar.Count > 0 && agentToFetch.Equals(null))
+        if(tooFar.Count > 0 && agentToFetch == null)
         {
             agentToFetch = tooFar[0];
             for(int i = 1; i < tooFar.Count; i++)
@@ -66,7 +70,8 @@ public class LookForRelative : Intention {
         int nbAgentLost = agent.Bdi.myBelief.MyGroup.Group.Count;
         foreach(Agent relative in agent.Bdi.myBelief.MyGroup.Group.Keys)
         {
-            if(agent.Bdi.myPerception.AgentsInSight.Contains(relative))
+            if(agent.Bdi.myPerception.AgentsInSight.Contains(relative) ||
+                agent.Bdi.myBelief.MyGroup.Group[relative] == null)
             {
                 nbAgentLost--;
             }
