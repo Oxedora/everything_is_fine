@@ -127,6 +127,7 @@ MonoBehaviour:
   viewAngle: 180
   safeSpace: 1
   maxSpeed: 5
+  coeffMesoFlock: 0.7
   coeffA: 0.4
   coeffC: 0.5
   coeffS: 0.1
@@ -153,6 +154,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   mesoGroup: []
+  burnedColor: {fileID: 2100000, guid: 8de957c5defdba54e8c42a8474689756, type: 2}
 --- !u!136 &136122215655168374
 CapsuleCollider:
   m_ObjectHideFlags: 1

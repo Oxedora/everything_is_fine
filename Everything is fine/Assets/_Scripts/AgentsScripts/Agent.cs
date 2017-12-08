@@ -37,7 +37,12 @@ public class Agent : MonoBehaviour {
     	}
     }
 
-
+    private bool isLit = false;
+    public bool IsLit
+    {
+        get { return isLit; }
+        set { isLit = value; }
+    }
 
 
 	// Use this for initialization
@@ -48,56 +53,37 @@ public class Agent : MonoBehaviour {
 		bdi = new BDI(this);
 	}
 
-    private void OnDrawGizmos()
-    {
-        float Radius = 1f;
-        Transform t = GetComponent<Transform>();
-        
-        float theta = 0f;
-        float x = Radius * Mathf.Cos(theta);
-        float y = Radius * Mathf.Sin(theta);
-        Vector3 pos = t.position + new Vector3(x, 0, y);
-        Vector3 newPos = pos;
-        Vector3 lastPos = pos;
-        for (theta = 0.1f; theta < Mathf.PI * 2; theta += 0.1f)
-        {
-            x = Radius * Mathf.Cos(theta);
-            y = Radius * Mathf.Sin(theta);
-            newPos = t.position + new Vector3(x, 0, y);
-            Debug.DrawLine(pos, newPos, Color.red);
-            pos = newPos;
-        }
-        Debug.DrawLine(pos, lastPos, Color.red);
-    }
-
     // Update is called once per frame
     void Update () {
-        Vector3 reflexes = bdi.UpdateBDI();
-        Debug.Log(gameObject.name + " my intention is " + (bdi.myIntention == null ? "None" : bdi.myIntention.GetType().ToString()));
-        if (!reflexes.Equals(Vector3.zero) || bdi.myIntention == null)
+        if (!isLit)
         {
-            Vector3 destination = transform.position + reflexes.normalized;
-            //Debug.DrawLine(transform.position, destination, Color.black);
-            rb.velocity = ((destination - transform.position).normalized) * settings.MaxSpeed;
-            transform.rotation = Quaternion.LookRotation(rb.velocity);
-        }
-        else
-        {
-            Vector3 intentionDirection = bdi.myIntention.DefaultState(this).normalized;
+            Vector3 reflexes = bdi.UpdateBDI();
+            //Debug.Log(gameObject.name + " my intention is " + (bdi.myIntention == null ? "None" : bdi.myIntention.GetType().ToString()));
+            if (!reflexes.Equals(Vector3.zero) || bdi.myIntention == null)
+            {
+                Vector3 destination = transform.position + reflexes.normalized;
+                //Debug.DrawLine(transform.position, destination, Color.black);
+                rb.velocity = ((destination - transform.position).normalized) * settings.MaxSpeed;
+                transform.rotation = Quaternion.LookRotation(rb.velocity);
+            }
+            else
+            {
+                Vector3 intentionDirection = bdi.myIntention.DefaultState(this).normalized;
 
-            intentionDirection.y = 0;
-            List<Agent> neighbors = bdi.myPerception.AgentsInSight;
-            List<Agent> relative = bdi.myBelief.MesoInSight(bdi.myPerception);
+                intentionDirection.y = 0;
+                List<Agent> neighbors = bdi.myPerception.AgentsInSight;
+                List<Agent> relative = bdi.myBelief.MesoInSight(bdi.myPerception);
 
-            Vector3 flockingDirection = (relative.Count > 0 ?
-                (1 - settings.CoeffMesoFlock) * flocking.Flocking(neighbors) + settings.CoeffMesoFlock * flocking.Flocking(relative) :
-                flocking.Flocking(neighbors));
+                Vector3 flockingDirection = (relative.Count > 0 ?
+                    (1 - settings.CoeffMesoFlock) * flocking.Flocking(neighbors) + settings.CoeffMesoFlock * flocking.Flocking(relative) :
+                    flocking.Flocking(neighbors));
 
-            Vector3 force = (intentionDirection.Equals(Vector3.zero) ? flockingDirection : (1 - settings.CoeffI) * flockingDirection + settings.CoeffI * intentionDirection);
-            Vector3 destination = transform.position + force.normalized;
-            //Debug.DrawLine(transform.position, destination, Color.black);
-            rb.velocity = (force.Equals(Vector3.zero) ? transform.TransformDirection(Vector3.forward) : (destination - transform.position).normalized) * settings.MaxSpeed;
-            transform.rotation = Quaternion.LookRotation(rb.velocity);
+                Vector3 force = (intentionDirection.Equals(Vector3.zero) ? flockingDirection : (1 - settings.CoeffI) * flockingDirection + settings.CoeffI * intentionDirection);
+                Vector3 destination = transform.position + force.normalized;
+                //Debug.DrawLine(transform.position, destination, Color.black);
+                rb.velocity = (force.Equals(Vector3.zero) ? transform.TransformDirection(Vector3.forward) : (destination - transform.position).normalized) * settings.MaxSpeed;
+                transform.rotation = Quaternion.LookRotation(rb.velocity);
+            }
         }
     }
 
@@ -119,16 +105,33 @@ public class Agent : MonoBehaviour {
         {
             gameObject.SetActive(false);
         }
+        else if(collision.gameObject.tag.Equals("Fire") && !isLit)
+        {
+            IsLit = true;
+            Dying();
+        }
     }
 
+    private void Dying()
+    {
+        if(isLit)
+        {
+            gameObject.GetComponent<MeshRenderer>().material = settings.burnedColor;
+            gameObject.layer = ToLayer(settings.ObstacleMask);
+            rb.constraints = RigidbodyConstraints.None;
+            rb.MoveRotation(Quaternion.AngleAxis(90f, new Vector3(1, 0, 0)));
+        }
+    }
+
+
+    public static int ToLayer(int bitmask)
+    {
+        int result = bitmask > 0 ? 0 : 31;
+        while (bitmask > 1)
+        {
+            bitmask = bitmask >> 1;
+            result++;
+        }
+        return result;
+    }
 }
-
-//Vector3 viewAngleA = bdi.myPerception.DirFromAngle(this, - settings.ViewAngle / 2, false);
-//Vector3 viewAngleB = bdi.myPerception.DirFromAngle(this, settings.ViewAngle / 2, false);
-
-//Debug.DrawLine(transform.position, transform.position + viewAngleA * settings.ViewRadius);
-//Debug.DrawLine(transform.position, transform.position + viewAngleB * settings.ViewRadius);
-
-//foreach(Agent a in neighbors){
-//    Debug.DrawLine(transform.position, a.transform.position, Color.yellow);
-//}

@@ -205,7 +205,7 @@ public class AgentsSettings : MonoBehaviour {
         }
     }
 
-    public Color groupColor = Color.black;
+    public Material burnedColor;
 
     private void Start()
     {

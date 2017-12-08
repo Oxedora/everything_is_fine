@@ -123,6 +123,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40fddd86545c3c04996be44a7ac77d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewRadius: 20
+  viewAngle: 180
+  safeSpace: 1
+  maxSpeed: 5
+  coeffMesoFlock: 0.7
+  coeffA: 0.33
+  coeffC: 0.33
+  coeffS: 0.5
+  coeffD: 0.5
+  coeffI: 0.7
+  dodgingAngle: 30
+  ratioFear: 0.7
   targetMask:
     serializedVersion: 2
     m_Bits: 256
@@ -141,6 +153,8 @@ MonoBehaviour:
   checkpointMask:
     serializedVersion: 2
     m_Bits: 1024
+  mesoGroup: []
+  burnedColor: {fileID: 2100000, guid: 8de957c5defdba54e8c42a8474689756, type: 2}
 --- !u!136 &136122215655168374
 CapsuleCollider:
   m_ObjectHideFlags: 1
