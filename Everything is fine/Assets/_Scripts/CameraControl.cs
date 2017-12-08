@@ -25,8 +25,8 @@ public class CameraControl : MonoBehaviour {
 		width = Screen.width;
 
 		//5% de la hauteur et de la largeur de l'ecran
-		width5 = (width * 5) / 100;
-		height5 = (height * 5) / 100;
+		width5 = (width * 1) / 100;
+		height5 = (height * 1) / 100;
 		this.transform.LookAt (camPosition.transform);
 
 
