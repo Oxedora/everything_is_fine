@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class scriptButton_Object : MonoBehaviour {
+public class Object_Script : MonoBehaviour {
 
 	public GameObject prefab;
 	public Button b;
