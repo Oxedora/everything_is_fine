@@ -26,20 +26,23 @@ public class Management_script : MonoBehaviour {
         }
     }
 
-	public void addItem(GameObject item, int price, Vector3 pos, GameObject target){
-		if (budget - price > 0) {
+	public void addItem(GameObject item, int price, Vector3 pos, Vector3 norm){
+		if (budget - price >= 0 && norm.y == 0) {
 			budget -= price;
 			text_budget.text = budget + " €";
             Debug.Log("forward target " + target.transform.localRotation+ " quaternion identity " + Quaternion.identity);
-			GameObject clone = GameObject.Instantiate (item,pos, target.transform.rotation);
+			Vector3 rot = new Vector3 (0, -90 * norm.z, 0);
+			pos.y = 2.5f;
+			GameObject clone = GameObject.Instantiate (item,pos,Quaternion.Euler(rot));
+
+			Debug.Log (norm);
             objects_signalisation.Add(clone);
 
         }
 	}
 
     public void deleteItem(GameObject item, int price){
-        if (objects_signalisation.Contains(item))
-        {
+        if (objects_signalisation.Contains(item)){
             objects_signalisation.Remove(item);
             GameObject.Destroy(item);
             budget += price;

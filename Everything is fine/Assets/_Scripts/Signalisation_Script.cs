@@ -36,8 +36,7 @@ public class Signalisation_Script : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //Debug.Log(target.transform.position + "" + hitInfo.transform.position);
-                    manage.GetComponent<Management_script>().addItem(prefab, 10, hitInfo.point, target);
+					manage.GetComponent<Management_script>().addItem(prefab, 10, hitInfo.point, hitInfo.normal);
                     active = false;
                 }
             }
