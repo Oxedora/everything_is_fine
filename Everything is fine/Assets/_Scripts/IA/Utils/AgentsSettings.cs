@@ -207,9 +207,18 @@ public class AgentsSettings : MonoBehaviour {
 
     public Material burnedColor;
 
+    private Material startColor;
+    public Material StartColor
+    {
+        get
+        {
+            return startColor;
+        }
+    }
+
     private void Start()
     {
-        
+        startColor = gameObject.GetComponent<MeshRenderer>().material;
     }
 
     private void Update()

@@ -37,7 +37,7 @@ public class Agent : MonoBehaviour {
     	}
     }
 
-    private bool isLit = false;
+    private bool isLit;
     public bool IsLit
     {
         get { return isLit; }
@@ -47,6 +47,7 @@ public class Agent : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        isLit = false;
 		rb = GetComponent<Rigidbody>();
 		settings = GetComponent<AgentsSettings>();
 		flocking = new Flock(this);
@@ -85,6 +86,22 @@ public class Agent : MonoBehaviour {
                 transform.rotation = Quaternion.LookRotation(rb.velocity);
             }
         }
+    }
+
+    public void ResetAgent(Vector3 position)
+    {
+        gameObject.transform.position = position;
+
+        isLit = false;
+        flocking = new Flock(this);
+        bdi = new BDI(this);
+
+        if (transform.childCount > 0)
+        {
+            transform.Find("feeling_aura").gameObject.SetActive(true);
+        }
+
+        gameObject.GetComponent<MeshRenderer>().material = settings.StartColor;
     }
 
     private void OnTriggerEnter(Collider collision)

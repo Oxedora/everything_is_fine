@@ -7,6 +7,8 @@ public class Management_script : MonoBehaviour {
 
 	public int budget;
 	public Text text_budget;
+    public GameObject bottom;
+    public AgentsPositionManager agentsPos;
     public List<GameObject> objects_signalisation;
     GameObject target;
     RaycastHit hitInfo;
@@ -14,7 +16,6 @@ public class Management_script : MonoBehaviour {
     void Start () {
 		text_budget.text = budget + " €";
         objects_signalisation = new List<GameObject>();
-
     }
 	
 	// Update is called once per frame
