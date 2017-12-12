@@ -116,13 +116,41 @@ public class Agent : MonoBehaviour {
     {
         if(isLit)
         {
+            SpreadFear();
             gameObject.GetComponent<MeshRenderer>().material = settings.burnedColor;
             gameObject.layer = ToLayer(settings.ObstacleMask);
             rb.constraints = RigidbodyConstraints.None;
             rb.MoveRotation(Quaternion.AngleAxis(90f, new Vector3(1, 0, 0)));
+
+            if(transform.childCount > 0)
+            {
+                transform.Find("feeling_aura").gameObject.SetActive(false);
+            }
         }
     }
 
+    private void SpreadFear()
+    {
+        Collider[] agentsInRadius = Physics.OverlapSphere(transform.position, settings.ViewRadius, settings.TargetMask);
+        foreach(Collider c in agentsInRadius)
+        {
+            Agent a = c.GetComponent<Agent>();
+            if(c != null)
+            {
+                if(a.Bdi.myPerception.AgentsInSight.Contains(this))
+                {
+                    if(a.Bdi.myBelief.MyGroup.Group.Keys.ToList().Contains(this))
+                    {
+                        a.Bdi.myFeelings.Fear += 0.2f;
+                    }
+                    else
+                    {
+                        a.Bdi.myFeelings.Fear += 0.1f;
+                    }
+                }
+            }
+        }
+    }
 
     public static int ToLayer(int bitmask)
     {

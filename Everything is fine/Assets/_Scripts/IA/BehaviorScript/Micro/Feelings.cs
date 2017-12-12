@@ -24,8 +24,8 @@ public class Feelings {
 	// Use this for initialization
 	public Feelings () {
 		System.Random rand = new System.Random();
-		anger = (float) rand.Next(0, 3) / (float)10.0;
-		fear = (float) rand.Next(0, 5) / (float)10.0;
+		anger = 0.0f;
+		fear = 0.0f;
 	}
 	
 	// Update is called once per frame
