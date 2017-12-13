@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114000013635316820}
   m_Layer: 0
   m_Name: FireManager
-  m_TagString: Fire
+  m_TagString: FireManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -65,8 +65,21 @@ MonoBehaviour:
   m_maxHillPropagationDistance: 0.6
   m_visualExtinguishThreshold: 0.2
   m_dayTime: 1
-  m_terrainTextures: []
+  m_terrainTextures:
+  - m_textureID: 0
+    m_flammable: 1
+    m_isGroundBurnTexture: 0
+    m_fuelLowerValue: 200
+    m_fuelHigherValue: 200
+    m_HPLowerValue: 20
+    m_HPHigherValue: 150
+    m_moisture: 0
+    m_firePropagationSpeed: 10
   m_burntGrassTextureIndex: 0
   m_detailedSimulation: 0
   m_removeGrassOnceBurnt: 0
   m_replaceGroundTextureOnceBurnt: 0
+  m_terrainUpdateTime: 1
+  m_staggeredGridConstruction: 1
+  m_maxGrassDetails: 0
+  m_burntGrassDetailIndex: 1

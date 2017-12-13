@@ -65,7 +65,7 @@ public class FireGrid : MonoBehaviour {
         // If a tag was not set in the editor then fallback to slower why of finding the object
         try
         {
-            GameObject manager = GameObject.FindWithTag("Fire");
+            GameObject manager = GameObject.FindWithTag("FireManager");
 
             if (manager != null)
             {
@@ -75,14 +75,14 @@ public class FireGrid : MonoBehaviour {
             {
                 // If a tag was not set in the editor then fallback to slower why of finding the object
                 m_fireManager = FindObjectOfType<FireManager>();
-                Debug.LogWarning("Fire Manager does not have the tag 'Fire'.");
+                Debug.LogWarning("Fire Manager does not have the tag 'FireManager'.");
             }
         }
         catch
         {
             // If a tag was not set in the editor then fallback to slower why of finding the object
             m_fireManager = FindObjectOfType<FireManager>();
-            Debug.LogWarning("No 'Fire' tag set, looking for Fire Manager.");
+            Debug.LogWarning("No 'FireManager' tag set, looking for Fire Manager.");
         }
 
         if (m_fireManager != null)

@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CheckP
+  - Exit
+  - Fire
+  - Checkpoint
+  - FireSource
+  - FireManager
   layers:
   - Default
   - TransparentFX
@@ -13,11 +19,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Agents
+  - Obstacles
+  - Checkpoints
+  - Indications
+  - Fire
   - 
   - 
   - 
