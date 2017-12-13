@@ -85,6 +85,8 @@ public class FireGrid : MonoBehaviour {
             Debug.LogWarning("No 'FireManager' tag set, looking for Fire Manager.");
         }
 
+        //Debug.Log(m_fireManager.gameObject.name);
+
         if (m_fireManager != null)
         {
             // Get data from FireManager
@@ -170,6 +172,7 @@ public class FireGrid : MonoBehaviour {
         {
             Debug.LogWarning("No FireManager found in the scene!");
         }
+        gameObject.tag = "FireGrid";
     }
 
     void Update()

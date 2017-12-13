@@ -28,6 +28,7 @@ public class LaunchController : MonoBehaviour {
         if(launched)
         {
             manager.agentsPos.RestartAgents();
+            manager.fireSourceMan.ResetFireSources();
             buttonText.text = launchText;
         }
         else
@@ -36,6 +37,7 @@ public class LaunchController : MonoBehaviour {
         }
         launched = !launched;
         manager.agentsPos.gameObject.SetActive(launched);
+        manager.fireSourceMan.gameObject.SetActive(launched);
         manager.bottom.SetActive(!launched);
     }
 }

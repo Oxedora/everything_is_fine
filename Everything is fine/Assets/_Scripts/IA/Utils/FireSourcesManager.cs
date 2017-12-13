@@ -1,23 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FireSourcesManager : MonoBehaviour {
 
-    private List<GameObject> fireSources;
+    private Dictionary<GameObject, Vector3> fireSources;
     [SerializeField]
     private float cooldown = 5.0f;
     private bool fireActivated = false;
 
 	// Use this for initialization
 	void Start () {
-        fireSources = new List<GameObject>();
+        fireSources = new Dictionary<GameObject, Vector3>();
 
         foreach(Transform child in transform)
         {
             if(child.tag.Equals("FireSource"))
             {
-                fireSources.Add(child.gameObject);
+                fireSources.Add(child.gameObject, child.transform.position);
             }
         }
 	}
@@ -40,7 +41,7 @@ public class FireSourcesManager : MonoBehaviour {
     {
         List<GameObject> disabledFireSources = new List<GameObject>();
 
-        foreach(GameObject fs in fireSources)
+        foreach(GameObject fs in fireSources.Keys)
         {
             if(!fs.activeInHierarchy)
             {
@@ -61,6 +62,23 @@ public class FireSourcesManager : MonoBehaviour {
             disabledFireSource[fireSelected].SetActive(true);
 
             Debug.Log("Activated " + disabledFireSource[fireSelected].name);
+        }
+    }
+
+    public void ResetFireSources()
+    {
+        List<GameObject> fSources = fireSources.Keys.ToList();
+       foreach(GameObject fire in fSources)
+       {
+            fire.transform.position = fireSources[fire];
+            fire.SetActive(false);
+       }
+
+        List<GameObject> fireGrids = GameObject.FindGameObjectsWithTag("FireGrid").ToList();
+
+        foreach(GameObject fg in fireGrids)
+        {
+            Destroy(fg);
         }
     }
 }

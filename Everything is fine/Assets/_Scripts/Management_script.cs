@@ -9,6 +9,7 @@ public class Management_script : MonoBehaviour {
 	public Text text_budget;
     public GameObject bottom;
     public AgentsPositionManager agentsPos;
+    public FireSourcesManager fireSourceMan;
     public List<GameObject> objects_signalisation;
     GameObject target;
     RaycastHit hitInfo;

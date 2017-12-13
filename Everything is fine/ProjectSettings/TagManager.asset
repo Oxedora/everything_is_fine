@@ -10,6 +10,7 @@ TagManager:
   - Checkpoint
   - FireSource
   - FireManager
+  - FireGrid
   layers:
   - Default
   - TransparentFX
