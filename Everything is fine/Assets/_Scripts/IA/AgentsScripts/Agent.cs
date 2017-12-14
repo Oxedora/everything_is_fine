@@ -44,10 +44,16 @@ public class Agent : MonoBehaviour {
         set { isLit = value; }
     }
 
+    private AgentsPositionManager agentManager;
 
 	// Use this for initialization
 	void Start () {
         isLit = false;
+        agentManager = GetComponentInParent<AgentsPositionManager>();
+        if(agentManager == null)
+        {
+            Debug.Log("Unable to find 'AgentPositionManager'");
+        }
 		rb = GetComponent<Rigidbody>();
 		settings = GetComponent<AgentsSettings>();
 		flocking = new Flock(this);
@@ -120,6 +126,10 @@ public class Agent : MonoBehaviour {
         }
         else if (collision.gameObject.tag.Equals("Exit"))
         {
+            if(agentManager != null)
+            {
+                agentManager.NbSafeAgent++;
+            }
             gameObject.SetActive(false);
         }
         else if(collision.gameObject.tag.Equals("Fire") && !isLit)
@@ -138,6 +148,11 @@ public class Agent : MonoBehaviour {
             gameObject.layer = ToLayer(settings.ObstacleMask);
             rb.constraints = RigidbodyConstraints.None;
             rb.MoveRotation(Quaternion.AngleAxis(90f, new Vector3(1, 0, 0)));
+
+            if(agentManager != null)
+            {
+                agentManager.NbDeadAgent++;
+            }
 
             if(transform.childCount > 0)
             {

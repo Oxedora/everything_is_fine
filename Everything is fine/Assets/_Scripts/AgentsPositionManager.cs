@@ -5,10 +5,28 @@ using UnityEngine;
 
 public class AgentsPositionManager : MonoBehaviour {
 
-    public Dictionary<Agent, Vector3> agentsOnStage;
-	// Use this for initialization
-	void Start () {
-        agentsOnStage = new Dictionary<Agent, Vector3>();
+    private Dictionary<Agent, Vector3> agentsOnStage = new Dictionary<Agent, Vector3>();
+    public int TotalAgents
+    {
+        get { return agentsOnStage.Keys.Count; }
+    }
+
+    private int nbSafeAgent = 0;
+    public int NbSafeAgent
+    {
+        get { return nbSafeAgent; }
+        set { nbSafeAgent = value; }
+    }
+
+    private int nbDeadAgent = 0;
+    public int NbDeadAgent
+    {
+        get { return nbDeadAgent; }
+        set { nbDeadAgent = value; }
+    }
+
+    // Use this for initialization
+    void Start () {
 
         if(transform.childCount > 0)
         {
@@ -34,6 +52,8 @@ public class AgentsPositionManager : MonoBehaviour {
 
     public void RestartAgents()
     {
+        nbDeadAgent = 0;
+        nbSafeAgent = 0;
         List<Agent> agents = agentsOnStage.Keys.ToList();
         foreach(Agent a in agents)
         {

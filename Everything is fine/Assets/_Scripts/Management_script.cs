@@ -5,10 +5,16 @@ using UnityEngine.UI;
 
 public class Management_script : MonoBehaviour {
 
+    public int time;
 	public int budget;
+
 	public Text text_budget;
-    public GameObject bottom;
+    public Text text_escapedAgent;
+    public Text text_time;
+
+    public GameObject bottom, playInfo;
     public AgentsPositionManager agentsPos;
+
     public FireSourcesManager fireSourceMan;
     public List<GameObject> objects_signalisation;
     GameObject target;
@@ -21,6 +27,11 @@ public class Management_script : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(agentsPos.gameObject.activeInHierarchy)
+        {
+            text_escapedAgent.text = agentsPos.NbSafeAgent + " / " + agentsPos.TotalAgents;
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
             target = ReturnClickedPos(out hitInfo);
