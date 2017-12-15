@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class FireSourcesManager : MonoBehaviour {
 
-    private Dictionary<GameObject, Vector3> fireSources;
+    private Dictionary<GameObject, Vector3> fireSources = new Dictionary<GameObject, Vector3>();
     [SerializeField]
     private float cooldown = 5.0f;
     private bool fireActivated = false;
 
 	// Use this for initialization
 	void Start () {
-        fireSources = new Dictionary<GameObject, Vector3>();
 
         foreach(Transform child in transform)
         {
