@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class Object_Script : MonoBehaviour {
 
 	public GameObject prefab;
-	public Button b;
-	public int price;
 	// Use this for initialization
 	void Start () {
 		

@@ -56,6 +56,15 @@ public class Management_script : MonoBehaviour {
 
 	public void addItem(GameObject item, int price, Vector3 pos, Vector3 norm){
 		if (norm.y == 0) {
+            Debug.Log(budget - price < 0);
+            if(budget >= 0 && (budget - price) < 0)
+            {
+                AudioSource audio = GetComponent<AudioSource>();
+                if(audio != null)
+                {
+                    audio.Play();
+                }
+            }
 			budget -= price;
             text_budget.color = (budget < 0 ? Color.red : Color.green);
 			text_budget.text = budget + " €";
@@ -81,6 +90,7 @@ public class Management_script : MonoBehaviour {
             objects_signalisation.Remove(item);
             GameObject.Destroy(item);
             budget += price;
+            text_budget.color = (budget < 0 ? Color.red : Color.green);
             text_budget.text = budget + " €";
         }
 	}
