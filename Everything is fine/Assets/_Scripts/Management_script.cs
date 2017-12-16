@@ -60,7 +60,13 @@ public class Management_script : MonoBehaviour {
             text_budget.color = (budget < 0 ? Color.red : Color.green);
 			text_budget.text = budget + " €";
             Debug.Log("forward target " + target.transform.localRotation+ " quaternion identity " + Quaternion.identity);
-			Vector3 rot = new Vector3 (0, 90 * norm.z, 0);
+			Vector3 rot = item.transform.eulerAngles;
+			if (norm.z != 0) {
+				rot.y =(-90 * norm.z) + item.transform.eulerAngles.y;
+			} else if (norm.x == -1) {
+				rot.y = 180 + item.transform.eulerAngles.y;
+			}
+
 			pos.y = 2.5f;
 			GameObject clone = GameObject.Instantiate (item,pos,Quaternion.Euler(rot));
 
@@ -82,7 +88,7 @@ public class Management_script : MonoBehaviour {
 
     public GameObject ReturnClickedPos(out RaycastHit hit)
     {
-		int layer = LayerMask.GetMask ("Obstacles");
+		int layer = LayerMask.GetMask ("Obstacles","Indications");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		if (Physics.Raycast(ray.origin, ray.direction * 10, out hit,Mathf.Infinity,layer))
         {
