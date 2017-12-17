@@ -7,11 +7,13 @@ public class FireSourcesManager : MonoBehaviour {
 
     private Dictionary<GameObject, Vector3> fireSources = new Dictionary<GameObject, Vector3>();
     [SerializeField]
-    private float cooldown = 5.0f;
+    private float initialCooldown = 5.0f;
+    private float cooldown;
     private bool fireActivated = false;
 
 	// Use this for initialization
 	void Start () {
+        cooldown = initialCooldown;
 
         foreach(Transform child in transform)
         {
@@ -66,7 +68,7 @@ public class FireSourcesManager : MonoBehaviour {
 
     public void ResetFireSources()
     {
-        List<GameObject> fSources = fireSources.Keys.ToList();
+       List<GameObject> fSources = fireSources.Keys.ToList();
        foreach(GameObject fire in fSources)
        {
             fire.transform.position = fireSources[fire];
@@ -79,5 +81,8 @@ public class FireSourcesManager : MonoBehaviour {
         {
             Destroy(fg);
         }
+
+        cooldown = initialCooldown;
+        fireActivated = false;
     }
 }
