@@ -17,8 +17,11 @@ public class FireIgniter : MonoBehaviour {
     private bool m_destroyOnCollision = false;
     private bool m_fireIgnited = false;
 
+    private FireGrid grid;
+    private FMODUnity.StudioEventEmitter emitter;
+
     // Use this for initialization
-    void Start () {
+    void Awake () {
         if(m_firePrefab == null)
         {
             Debug.LogError("No Fire Prefab set on Fire Igniter.");
@@ -42,8 +45,15 @@ public class FireIgniter : MonoBehaviour {
     {
         GameObject fireGrid = new GameObject();
         fireGrid.name = "FireGrid";
-        FireGrid grid = fireGrid.AddComponent<FireGrid>();
+        grid = fireGrid.AddComponent<FireGrid>();
         fireGrid.AddComponent<FireGrassRemover>();
+
+        emitter = GetComponent<FMODUnity.StudioEventEmitter>();
+        if (emitter == null)
+        {
+            Debug.Log("Unable to create FMOD_StudioEventEmitter on " + gameObject.name);
+        }
+
         grid.IgniterUpdate(m_firePrefab, gameObject.transform.position, m_gridWidth, m_gridHeight);
     }
 
@@ -51,6 +61,7 @@ public class FireIgniter : MonoBehaviour {
     // param Collision
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collided with "+collision.gameObject.name);
         if (m_fireIgnited == false)
         {
             OnCollision();
@@ -59,6 +70,21 @@ public class FireIgniter : MonoBehaviour {
             if (m_destroyOnCollision)
                 Destroy();
         }
+    }
+
+    private void Update()
+    {
+        if(emitter != null && grid != null)
+        {
+            float nbCell = m_gridHeight * m_gridWidth;
+            float percentageLit = (float)grid.CellsLit / nbCell;
+            float value = percentageLit * 50;
+            Debug.Log("PercentageLit : " + value);
+            emitter.SetParameter("Strength", value);
+            emitter.OverrideMinDistance = grid.CellsLit;
+            emitter.OverrideMaxDistance = emitter.OverrideMinDistance + 49f;
+        }
+        
     }
 
     // brief Destroy this object

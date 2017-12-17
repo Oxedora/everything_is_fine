@@ -53,6 +53,10 @@ public class FireGrid : MonoBehaviour {
     private int m_width;
     private int m_height;
     private int m_fireCellsLit = 0;
+    public int CellsLit
+    {
+        get { return m_fireCellsLit; }
+    }
     private bool m_fastSim;
     private bool m_centerCellIgnited = false;
     [SerializeField][Tooltip("Using a FireIgniter?")]
