@@ -12,10 +12,10 @@ public class OptionsController : MonoBehaviour {
 		GameVariables.UserPrefToVariables();
 
 		volM = GameObject.Find("Slider_musique");
-		volM.GetComponent<Slider>().value = GameVariables.VolumeToSliderValue(GameVariables.volMusic);
+        volM.GetComponent<Slider>().value = GameVariables.volMusic; //GameVariables.VolumeToSliderValue(GameVariables.volMusic);
 
 		volS = GameObject.Find("Slider_son");
-		volS.GetComponent<Slider>().value = GameVariables.VolumeToSliderValue(GameVariables.volSound);
+        volS.GetComponent<Slider>().value = GameVariables.volSound;  //GameVariables.VolumeToSliderValue(GameVariables.volSound);
 
 		help = GameObject.Find("Toggle_aide");
 		help.GetComponent<Toggle>().isOn = GameVariables.help;

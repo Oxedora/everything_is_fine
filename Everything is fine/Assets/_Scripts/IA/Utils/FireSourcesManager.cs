@@ -72,6 +72,7 @@ public class FireSourcesManager : MonoBehaviour {
        foreach(GameObject fire in fSources)
        {
             fire.transform.position = fireSources[fire];
+            fire.GetComponent<FireIgniter>().fireIgnited = false;
             fire.SetActive(false);
        }
 

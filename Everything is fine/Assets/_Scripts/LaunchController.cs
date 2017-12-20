@@ -27,10 +27,12 @@ public class LaunchController : MonoBehaviour {
         {
             if (manager.agentsPos.NbDeadAgent + manager.agentsPos.NbSafeAgent == manager.agentsPos.TotalAgents)
             {
+                int nbDead = manager.agentsPos.NbDeadAgent;
+                int nbSafe = manager.agentsPos.NbSafeAgent;
+                SwitchMode();
                 manager.endGame = true;
                 manager.timeElapsed = timeElapsed;
-                manager.EndGamePanel(manager.agentsPos.NbSafeAgent, manager.agentsPos.TotalAgents);
-                SwitchMode();
+                manager.EndGamePanel(nbSafe, manager.agentsPos.TotalAgents);
             }
             else
             {
@@ -73,7 +75,7 @@ public class LaunchController : MonoBehaviour {
         manager.agentsPos.gameObject.SetActive(launched);
         manager.fireSourceMan.gameObject.SetActive(launched);
         manager.bottom.SetActive(!launched);
-        manager.Node.SetActive(launched);
         manager.playInfo.SetActive(launched);
+        manager.SetMusique(launched);
     }
 }

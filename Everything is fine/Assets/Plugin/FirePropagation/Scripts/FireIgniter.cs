@@ -16,6 +16,11 @@ public class FireIgniter : MonoBehaviour {
     [SerializeField][Tooltip("Delete this GameObject when there is a collision with it and the terrain or another GameObject?")]
     private bool m_destroyOnCollision = false;
     private bool m_fireIgnited = false;
+    public bool fireIgnited
+    {
+        get { return m_fireIgnited; }
+        set { m_fireIgnited = value; }
+    }
 
     private FireGrid grid;
     private FMODUnity.StudioEventEmitter emitter;

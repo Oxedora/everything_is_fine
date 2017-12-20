@@ -20,13 +20,22 @@ public class Management_script : MonoBehaviour {
     public Text text_escapedAgent;
     public Text text_time;
 
-    public GameObject bottom, playInfo, Node, levelInfo, endGamePanel;
+    public GameObject bottom, playInfo, levelInfo, endGamePanel;
     public AgentsPositionManager agentsPos;
 
     public FireSourcesManager fireSourceMan;
     public List<GameObject> objects_signalisation;
     GameObject target;
     RaycastHit hitInfo;
+
+    public AudioClip buildMusic, simMusic, siren;
+    private AudioSource musique, audio;
+    public void SetMusique(bool isLaunched)
+    {
+        musique.Stop();
+        musique.clip = (isLaunched ? simMusic : buildMusic);
+        musique.Play();
+    }
 
     public bool endGame = false;
 
@@ -35,6 +44,17 @@ public class Management_script : MonoBehaviour {
         initialBudget = budget;
 		text_budget.text = budget + " €";
         objects_signalisation = new List<GameObject>();
+        audio = GetComponent<AudioSource>();
+        if(audio != null)
+        {
+            audio.volume = GameVariables.volSound;
+        }
+
+        musique = gameObject.AddComponent<AudioSource>();
+        musique.loop = true;
+        musique.clip = buildMusic;
+        musique.volume = GameVariables.volMusic;
+        musique.Play();
     }
 	
 	// Update is called once per frame
@@ -59,7 +79,6 @@ public class Management_script : MonoBehaviour {
             Debug.Log(budget - price < 0);
             if(budget >= 0 && (budget - price) < 0)
             {
-                AudioSource audio = GetComponent<AudioSource>();
                 if(audio != null)
                 {
                     audio.Play();
@@ -110,6 +129,10 @@ public class Management_script : MonoBehaviour {
     public void EndGamePanel(int nbSafeAgent, int totalAgents)
     {
         levelInfo.SetActive(!endGame);
+        musique.Stop();
+        musique.clip = siren;
+        musique.loop = false;
+        musique.Play();
         endGamePanel.SetActive(endGame);
         endGamePanel.GetComponent<EndGameScript>().SetValues(nbSafeAgent, totalAgents, initialBudget, budget, timeElapsed);
     }

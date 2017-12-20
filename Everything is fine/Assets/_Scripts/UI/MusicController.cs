@@ -18,6 +18,7 @@ public class MusicController : MonoBehaviour {
 	}
 
 	public void ValueChangeCheck() {
-		GameVariables.volMusic = GameVariables.SliderValueToVolume(volM.value);
+        Debug.Log(volM.value);
+        GameVariables.volMusic = volM.value; /*GameVariables.SliderValueToVolume(volM.value)*/
 	}
 }

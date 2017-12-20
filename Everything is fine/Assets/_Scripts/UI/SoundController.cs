@@ -18,6 +18,6 @@ public class SoundController : MonoBehaviour {
 	}
 
 	public void ValueChangeCheck() {
-		GameVariables.volSound = GameVariables.SliderValueToVolume(volS.value);
+        GameVariables.volSound = volS.value; //GameVariables.SliderValueToVolume(volS.value);
 	}
 }

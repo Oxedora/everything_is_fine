@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Globalization;
 
 public static class GameVariables {
-	public static int volMusic;
-	public static int volSound;
+	public static float volMusic;
+	public static float volSound;
 	public static bool help;
 	private static String userPrefFile = "UserPref.txt";
 
@@ -17,8 +18,8 @@ public static class GameVariables {
 
 	public static void UserPrefToVariables(){
 		using (StreamReader stream = new StreamReader(userPrefFile)) {
-			volMusic = int.Parse(stream.ReadLine());
-			volSound = int.Parse(stream.ReadLine());
+			volMusic = float.Parse(stream.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
+			volSound = float.Parse(stream.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
 			help = (stream.ReadLine() == "v" ? true : false);
 			stream.Close();
 		}
